@@ -1,37 +1,67 @@
 const Lodash = require('./sync');
+let _ = new Lodash();
 
-describe('Lodash: compact', ()=>{
-    let _ = new Lodash();
+describe('Lodash: compact', () => {
     let array;
 
-    beforeEach(()=>{
+    beforeEach(() => {
         array = ['', 0, '', 42, 'Hello', false, true, null];
     });
 
-    afterAll(()=>{
+    afterAll(() => {
         _ = new Lodash();
     });
 
-    test('should be editable', ()=>{
+    test('should be editable', () => {
         array.push(...['one', 'two']);
         expect(array).toContain('one');
         expect(array).toContain('two');
     });
 
-    test('should be defined', ()=>{
+    test('should be defined', () => {
         expect(_.compact).toBeDefined();
         expect(_.compact).not.toBeUndefined();
     });
 
-    test('should remove falsy values from array', ()=>{
+    test('should remove falsy values from array', () => {
         const result = [42, 'Hello', true];
         expect(_.compact(array)).toEqual(result);
     });
 
-    test('should not contain falsy values', ()=>{
+    test('should not contain falsy values', () => {
         expect(_.compact(array)).not.toContain('');
         expect(_.compact(array)).not.toContain(0);
         expect(_.compact(array)).not.toContain(false);
         expect(_.compact(array)).not.toContain(null);
+    })
+});
+
+describe('Lodash: groupBy', () => {
+    test('should be defined', () => {
+        expect(_.groupBy()).toBeDefined();
+        expect(_.groupBy()).not.toBeUndefined();
+    });
+
+    test('should group array items by Math.floor', () => {
+        const array = [2.2, 2.4, 3.5, 4.3];
+        const result = {
+            2: [2.2, 2.4],
+            3: [3.5],
+            4: [4.3]
+        };
+        expect(_.groupBy(array, Math.floor)).toEqual(result);
+    });
+
+    test('should group array items by length', () => {
+        const array = ['one', 'two', 'three'];
+        const result = {
+            5: ['three'],
+            3: ['one', 'two']
+        };
+        expect(_.groupBy(array, 'length')).toEqual(result)
+    })
+
+    test('should NOT return array', () => {
+        expect(_.groupBy([], Math.trunc)).not.toBeInstanceOf(Array)
     })
 });
