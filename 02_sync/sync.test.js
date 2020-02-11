@@ -38,8 +38,8 @@ describe('Lodash: compact', () => {
 
 describe('Lodash: groupBy', () => {
     test('should be defined', () => {
-        expect(_.groupBy()).toBeDefined();
-        expect(_.groupBy()).not.toBeUndefined();
+        expect(_.groupBy).toBeDefined();
+        expect(_.groupBy).not.toBeUndefined();
     });
 
     test('should group array items by Math.floor', () => {
@@ -59,7 +59,7 @@ describe('Lodash: groupBy', () => {
             3: ['one', 'two']
         };
         expect(_.groupBy(array, 'length')).toEqual(result)
-    })
+    });
 
     test('should NOT return array', () => {
         expect(_.groupBy([], Math.trunc)).not.toBeInstanceOf(Array)
